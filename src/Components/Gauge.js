@@ -14,7 +14,8 @@ export const Gauge = ({ percent = 0, radius, text = "", colors = ["#00ff00", "#f
       <defs>
         <linearGradient id={`grad-${text}`} x1="0" y1="0" x2="1" y2="1">
           <stop offset="0%" stopColor={colors[0]} />
-          <stop offset="100%" stopColor={colors[1]} />
+          stop offset="50%" stopColor={colors[1]} />
+          <stop offset="100%" stopColor={colors[2]} />
         </linearGradient>
       </defs>
 

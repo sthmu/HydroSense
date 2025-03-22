@@ -80,17 +80,19 @@ function App() {
   const safeSensorData = error && lastFetchedData ? lastFetchedData : sensorData;
 
   // Calculate water level percentage safely
-  const waterLevel = Math.max(0, Math.min(100, ((tankHeight - safeSensorData.distance) / tankHeight) * 100));
-  const waterQuality = Math.max(0, Math.min(100, (safeSensorData.tds / 500) * 100));
+
+  const waterQuality = 3*safeSensorData.tds;
+  const waterLevel = Math.max(0, Math.min(100, ((tankHeight - (safeSensorData.distance-20)) / tankHeight) * 100));
+  // const waterQuality =(Math.max(0, Math.min(100, ( tdsVal/ 500) * 100)));
   console.log(safeSensorData.tds);
 
   const temperature = Math.max(0, Math.min(100, (safeSensorData.temperature / 50) * 100));
 
   return (
     <div className="container text-center mt-5">
-      <h1 className="mb-4">Water Tank Monitoring</h1>
+      <h1 className="mb-4">hydrosense Tank Monitoring</h1>
 
-      <div className="mb-3">
+      <div className="mt-5 mb-5">
         <label className="form-label">Enter Tank Height (cm):</label>
         <input
           type="number"
@@ -112,7 +114,7 @@ function App() {
         </div>
       )}
 
-      <div className="row">
+      <div className="row mt-5">
         <div className="col-md-4">
           <h3>Water Level</h3>
           <Gauge
@@ -129,10 +131,10 @@ function App() {
           <Gauge
             percent={waterQuality}
             radius={80}
-            text={waterQuality > 70 ? "Good" : waterQuality > 40 ? "Moderate" : "Bad"}
-            colors={[ "#ff0000", "#00ff00"]} // Green → Yellow → Red
+            text={waterQuality==0?"Error":waterQuality > 66 ? "Bad" : waterQuality > 33 ? "Poor" : "Good"}
+            colors={[ "#ff0000","FFA500", "#00ff00"]} // Green → Yellow → Red
           />
-          <p>{waterQuality.toFixed(2)}%</p>
+          <p>PPM {waterQuality.toFixed(2)}</p>
         </div>
 
         <div className="col-md-4">
@@ -141,7 +143,7 @@ function App() {
             percent={temperature}
             radius={80}
             text="Temp"
-            colors={["#ff0000", "#1267ff"]} // Blue → Red
+            colors={["#F53B3B", "#4D93DD"]} // Blue → Red
           />
           <p>{safeSensorData.temperature.toFixed(2)}°C</p>
         </div>
