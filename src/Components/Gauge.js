@@ -1,6 +1,6 @@
 import React from "react";
 
-export const Gauge = ({ percent = 0, radius, text = "", colors = ["#00ff00", "#ffff00", "#ff0000"], ...rest }) => {
+export const Gauge = ({ percent = 0, radius, text = "", colors = ["", "#ff0000"], ...rest }) => {
   const strokeWidth = radius * 0.2;
   const innerRadius = radius - strokeWidth;
   const circumference = innerRadius * 2 * Math.PI;
@@ -13,9 +13,8 @@ export const Gauge = ({ percent = 0, radius, text = "", colors = ["#00ff00", "#f
     <svg height={radius * 2} width={radius * 2} {...rest}>
       <defs>
         <linearGradient id={`grad-${text}`} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor={colors[0]} />
-          stop offset="50%" stopColor={colors[1]} />
-          <stop offset="100%" stopColor={colors[2]} />
+          <stop offset="25%" stopColor={colors[0]} />
+          <stop offset="70%" stopColor={colors[1]} />
         </linearGradient>
       </defs>
 

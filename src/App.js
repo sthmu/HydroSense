@@ -81,8 +81,8 @@ function App() {
 
   // Calculate water level percentage safely
 
-  const waterQuality = 3*safeSensorData.tds;
-  const waterLevel = Math.max(0, Math.min(100, ((tankHeight - (safeSensorData.distance-20)) / tankHeight) * 100));
+  const waterQuality = 3 * safeSensorData.tds;
+  const waterLevel = Math.max(0, Math.min(100, ((tankHeight - (safeSensorData.distance - 20)) / tankHeight) * 100));
   // const waterQuality =(Math.max(0, Math.min(100, ( tdsVal/ 500) * 100)));
   console.log(safeSensorData.tds);
 
@@ -131,10 +131,21 @@ function App() {
           <Gauge
             percent={waterQuality}
             radius={80}
-            text={waterQuality==0?"Error":waterQuality > 66 ? "Bad" : waterQuality > 33 ? "Poor" : "Good"}
-            colors={[ "#ff0000","FFA500", "#00ff00"]} // Green → Yellow → Red
+            text={
+              waterQuality === 0
+                ? "Error"
+                : waterQuality > 66
+                  ? "Bad"
+                  : waterQuality > 33
+                    ? "Poor"
+                    : "Good"
+            }
+            colors={[
+              waterQuality > 66 ? "#ff0000" : waterQuality > 33 ? "#FFA500" : "#00ff00",  // Primary color
+              waterQuality > 66 ? "#B22222" : waterQuality > 33 ? "#FFB347" : "#00cc00"   // Close gradient color
+            ]}
           />
-          <p>PPM {waterQuality.toFixed(2)}</p>
+
         </div>
 
         <div className="col-md-4">
